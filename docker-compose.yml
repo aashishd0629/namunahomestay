@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: .
+    container_name: homestay-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/homestay
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+
+  db:
+    image: postgres:15
+    container_name: homestay-db
+    environment:
+      POSTGRES_DB: homestay
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
